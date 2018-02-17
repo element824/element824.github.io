@@ -10,6 +10,16 @@
         url(/css/fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
 
+.slider
+{
+    height: 10px;
+}
+.slides
+{
+    height: 10px;
+}
+
+
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;

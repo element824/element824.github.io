@@ -102,43 +102,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Reading]]></title>
-      <url>http://koushiknagarajan.com/reading/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[John's Resume]]></title>
-      <url>http://koushiknagarajan.com/about/resume.html</url>
-      <content type="html"><![CDATA[<p>##John(john@gmail.com)</p>
-<ul>
-<li>Blog: <a href="http://john.com" target="_blank" rel="noopener">http://john.com</a></li>
-<li>CA, America</li>
-</ul>
-<p>##EDUCATION</p>
-<ul>
-<li>2009.9-2013.7  Bachelor’s Degree,MIT, Computer science and technology, GPA(3.61)</li>
-</ul>
-<p>##EMPLOYMENT</p>
-<p>###XXXXX    2013.7-Now</p>
-<p>####XXXXXX   2013.10-Now</p>
-<ul>
-<li>XXXXXXXXX</li>
-<li>XXXXXXXXXXXXXXX</li>
-<li>xxxxx</li>
-<li>XXXXXXXXXXXXXXXXXXX</li>
-<li>XXXXXXX</li>
-</ul>
-<p>##SKILLS</p>
-<ul>
-<li>Solid in Android/Java, familiar with android decompiling(for study)</li>
-<li>Konw about C#/WP, Python, SQLite, Html, Markdown, etc.</li>
-<li>Tools: Eclipse, Android Studio, Visual Studio, etc.</li>
-</ul>
-]]></content>
-    </entry>
-    
-    <entry>
       <title></title>
       <url>http://koushiknagarajan.com/about/resumekn.html</url>
       <content type="html"><![CDATA[<!doctype html>
@@ -939,11 +902,11 @@ ul.courses li:hover {
     			</div>
     			<div class="email">
     				<span class="fa fa-envelope-o"></span>
-    				<a href="mailto:koushik.nagarajan@gmail.com" target="_blank" rel="noopener">koushik.nagarajan@gmail.com</a>
+    				<a href="mailto:kou******rajan@gmail.com" target="_blank" rel="noopener">kou*****ajan@gmail.com</a>
     			</div>
     			<div class="phone">
     				<span class="fa fa-mobile"></span>
-    				<a href="tel:(+61) 422 637 444" target="_blank" rel="noopener">(+61) 422 637 444</a>
+    				<a href="tel:(+xx) xxx xxx xxx" target="_blank" rel="noopener">(+61) xxx xxx xxx</a>
     			</div>
     		</div>
     
@@ -1128,6 +1091,18 @@ ul.courses li:hover {
   </div></body>
 </html>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Resume]]></title>
+      <url>http://koushiknagarajan.com/about/resume.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Reading]]></title>
+      <url>http://koushiknagarajan.com/reading/index.html</url>
+      <content type="html"></content>
     </entry>
     
   
