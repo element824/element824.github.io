@@ -102,6 +102,12 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Resume]]></title>
+      <url>http://koushiknagarajan.com/about/resume.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title></title>
       <url>http://koushiknagarajan.com/about/resumekn.html</url>
       <content type="html"><![CDATA[<!doctype html>
@@ -1091,12 +1097,6 @@ ul.courses li:hover {
   </div></body>
 </html>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Resume]]></title>
-      <url>http://koushiknagarajan.com/about/resume.html</url>
-      <content type="html"></content>
     </entry>
     
     <entry>
