@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://koushiknagarajan.com/"/>
-  <updated>2018-02-13T03:15:44.529Z</updated>
+  <updated>2018-03-14T14:02:33.846Z</updated>
   <id>http://koushiknagarajan.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello R Markdown</title>
+    <link href="http://koushiknagarajan.com/2018/03/15/r-rmarkdown/"/>
+    <id>http://koushiknagarajan.com/2018/03/15/r-rmarkdown/</id>
+    <published>2018-03-14T13:00:00.000Z</published>
+    <updated>2018-03-14T14:02:33.846Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="R-Markdown"><a href="#R-Markdown" class="headerlink" title="R Markdown"></a>R Markdown</h1><p>This is an R Markdown document. Please note this page was <strong>not</strong> rendered using the <a href="http://rmarkdown.rstudio.com" target="_blank" rel="noopener"><strong>rmarkdown</strong></a> package or <a href="http://pandoc.org" target="_blank" rel="noopener">Pandoc</a>. The R Markdown document is compiled to Markdown through <strong>knitr</strong>, and the Markdown document is rendered to HTML through <a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">Hexo’s Markdown renderer</a>.</p><p>You can embed an R code chunk like this:</p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">summary(cars)</span><br><span class="line"><span class="comment">##      speed           dist    </span></span><br><span class="line"><span class="comment">##  Min.   : 4.0   Min.   :  2  </span></span><br><span class="line"><span class="comment">##  1st Qu.:12.0   1st Qu.: 26  </span></span><br><span class="line"><span class="comment">##  Median :15.0   Median : 36  </span></span><br><span class="line"><span class="comment">##  Mean   :15.4   Mean   : 43  </span></span><br><span class="line"><span class="comment">##  3rd Qu.:19.0   3rd Qu.: 56  </span></span><br><span class="line"><span class="comment">##  Max.   :25.0   Max.   :120</span></span><br><span class="line">fit &lt;- lm(dist ~ speed, data = cars)</span><br><span class="line">fit</span><br><span class="line"><span class="comment">## </span></span><br><span class="line"><span class="comment">## Call:</span></span><br><span class="line"><span class="comment">## lm(formula = dist ~ speed, data = cars)</span></span><br><span class="line"><span class="comment">## </span></span><br><span class="line"><span class="comment">## Coefficients:</span></span><br><span class="line"><span class="comment">## (Intercept)        speed  </span></span><br><span class="line"><span class="comment">##      -17.58         3.93</span></span><br></pre></td></tr></table></figure><h1 id="Including-Plots"><a href="#Including-Plots" class="headerlink" title="Including Plots"></a>Including Plots</h1><p>You can also embed R plots:</p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">par(mar = c(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">pie(</span><br><span class="line">  c(<span class="number">280</span>, <span class="number">60</span>, <span class="number">20</span>),</span><br><span class="line">  c(<span class="string">'Sky'</span>, <span class="string">'Sunny side of pyramid'</span>, <span class="string">'Shady side of pyramid'</span>),</span><br><span class="line">  col = c(<span class="string">'#0292D8'</span>, <span class="string">'#F7EA39'</span>, <span class="string">'#C4B632'</span>),</span><br><span class="line">  init.angle = -<span class="number">50</span>, border = <span class="literal">NA</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>) <span class="comment"># For plotting </span></span><br><span class="line"><span class="comment">## Warning: package 'ggplot2' was built under R version 3.4.3</span></span><br></pre></td></tr></table></figure><p><img src="/figure/posts/2018-03-15-r-rmarkdown/pie-1.png" alt=""></p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Plot the relationship between weight and miles per gallon  </span></span><br><span class="line">plot &lt;- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() + <span class="comment"># </span></span><br><span class="line">  geom_smooth(method = <span class="string">"lm"</span>) + theme_bw() + <span class="comment"># add linear model and make black and white</span></span><br><span class="line">  xlab(<span class="string">"Weight (1000lbs)"</span>) + ylab(<span class="string">"Miles per Gallon"</span>) <span class="comment"># Add axis labels</span></span><br><span class="line"></span><br><span class="line">plot</span><br></pre></td></tr></table></figure><p><img src="/figure/posts/2018-03-15-r-rmarkdown/pie-2.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;R-Markdown&quot;&gt;&lt;a href=&quot;#R-Markdown&quot; class=&quot;headerlink&quot; title=&quot;R Markdown&quot;&gt;&lt;/a&gt;R Markdown&lt;/h1&gt;&lt;p&gt;This is an R Markdown document. Please
+      
+    
+    </summary>
+    
+      <category term="R" scheme="http://koushiknagarajan.com/categories/R/"/>
+    
+    
+      <category term="R Markdown" scheme="http://koushiknagarajan.com/tags/R-Markdown/"/>
+    
+      <category term="plot" scheme="http://koushiknagarajan.com/tags/plot/"/>
+    
+      <category term="regression" scheme="http://koushiknagarajan.com/tags/regression/"/>
+    
+  </entry>
   
   <entry>
     <title>Sample</title>
@@ -61,35 +90,6 @@
     
     
       <category term="Statistics" scheme="http://koushiknagarajan.com/tags/Statistics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello R Markdown</title>
-    <link href="http://koushiknagarajan.com/2015/07/23/r-rmarkdown/"/>
-    <id>http://koushiknagarajan.com/2015/07/23/r-rmarkdown/</id>
-    <published>2015-07-22T14:00:00.000Z</published>
-    <updated>2018-03-14T13:58:00.135Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="R-Markdown"><a href="#R-Markdown" class="headerlink" title="R Markdown"></a>R Markdown</h1><p>This is an R Markdown document. Please note this page was <strong>not</strong> rendered using the <a href="http://rmarkdown.rstudio.com" target="_blank" rel="noopener"><strong>rmarkdown</strong></a> package or <a href="http://pandoc.org" target="_blank" rel="noopener">Pandoc</a>. The R Markdown document is compiled to Markdown through <strong>knitr</strong>, and the Markdown document is rendered to HTML through <a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">Hexo’s Markdown renderer</a>.</p><p>You can embed an R code chunk like this:</p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">summary(cars)</span><br><span class="line"><span class="comment">##      speed           dist    </span></span><br><span class="line"><span class="comment">##  Min.   : 4.0   Min.   :  2  </span></span><br><span class="line"><span class="comment">##  1st Qu.:12.0   1st Qu.: 26  </span></span><br><span class="line"><span class="comment">##  Median :15.0   Median : 36  </span></span><br><span class="line"><span class="comment">##  Mean   :15.4   Mean   : 43  </span></span><br><span class="line"><span class="comment">##  3rd Qu.:19.0   3rd Qu.: 56  </span></span><br><span class="line"><span class="comment">##  Max.   :25.0   Max.   :120</span></span><br><span class="line">fit &lt;- lm(dist ~ speed, data = cars)</span><br><span class="line">fit</span><br><span class="line"><span class="comment">## </span></span><br><span class="line"><span class="comment">## Call:</span></span><br><span class="line"><span class="comment">## lm(formula = dist ~ speed, data = cars)</span></span><br><span class="line"><span class="comment">## </span></span><br><span class="line"><span class="comment">## Coefficients:</span></span><br><span class="line"><span class="comment">## (Intercept)        speed  </span></span><br><span class="line"><span class="comment">##      -17.58         3.93</span></span><br></pre></td></tr></table></figure><h1 id="Including-Plots"><a href="#Including-Plots" class="headerlink" title="Including Plots"></a>Including Plots</h1><p>You can also embed R plots:</p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">par(mar = c(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">pie(</span><br><span class="line">  c(<span class="number">280</span>, <span class="number">60</span>, <span class="number">20</span>),</span><br><span class="line">  c(<span class="string">'Sky'</span>, <span class="string">'Sunny side of pyramid'</span>, <span class="string">'Shady side of pyramid'</span>),</span><br><span class="line">  col = c(<span class="string">'#0292D8'</span>, <span class="string">'#F7EA39'</span>, <span class="string">'#C4B632'</span>),</span><br><span class="line">  init.angle = -<span class="number">50</span>, border = <span class="literal">NA</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>) <span class="comment"># For plotting </span></span><br><span class="line"><span class="comment">## Warning: package 'ggplot2' was built under R version 3.4.3</span></span><br></pre></td></tr></table></figure><p><img src="/figure/posts/2015-07-23-r-rmarkdown/pie-1.png" alt=""></p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Plot the relationship between weight and miles per gallon  </span></span><br><span class="line">plot &lt;- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() + <span class="comment"># </span></span><br><span class="line">  geom_smooth(method = <span class="string">"lm"</span>) + theme_bw() + <span class="comment"># add linear model and make black and white</span></span><br><span class="line">  xlab(<span class="string">"Weight (1000lbs)"</span>) + ylab(<span class="string">"Miles per Gallon"</span>) <span class="comment"># Add axis labels</span></span><br><span class="line"></span><br><span class="line">plot</span><br></pre></td></tr></table></figure><p><img src="/figure/posts/2015-07-23-r-rmarkdown/pie-2.png" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;R-Markdown&quot;&gt;&lt;a href=&quot;#R-Markdown&quot; class=&quot;headerlink&quot; title=&quot;R Markdown&quot;&gt;&lt;/a&gt;R Markdown&lt;/h1&gt;&lt;p&gt;This is an R Markdown document. Please
-      
-    
-    </summary>
-    
-      <category term="R" scheme="http://koushiknagarajan.com/categories/R/"/>
-    
-    
-      <category term="R Markdown" scheme="http://koushiknagarajan.com/tags/R-Markdown/"/>
-    
-      <category term="plot" scheme="http://koushiknagarajan.com/tags/plot/"/>
-    
-      <category term="regression" scheme="http://koushiknagarajan.com/tags/regression/"/>
     
   </entry>
   

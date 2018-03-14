@@ -7,7 +7,7 @@
 
     
 
-    <title>Archives | Koushik Nagarajan</title>
+    <title>Hello R Markdown | Koushik Nagarajan</title>
     <meta name="author" content="Koushik Nagarajan">
     
     <meta name="description" content="Data &amp; Business Intelligence Professional ● Software Developer ● Solutions Architect">
@@ -15,7 +15,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+    <meta property="og:title" content="Hello R Markdown"/>
     <meta property="og:site_name" content="Koushik Nagarajan"/>
 
     
@@ -178,74 +178,92 @@
 
     <main>
         <div class="container main-container">
-    
-
-<nav class="page-nav hide-on-small-only">
+    <nav class="page-nav hide-on-small-only">
     <div class="nav-wrapper blue-grey darken-1">
-        <span class="breadcrumb">Current page(Archives)</span>
+        <span class="breadcrumb">Current page(Categories)</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/R/">R</a>
+
+
         
 
         
     </div>
 </nav>
 
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Hello R Markdown</h1>
+    
 
 
-    <ul class="collapsible mt-0" data-collapsible="accordion">
+            </div>
+            <time class="blue-grey-link-context" datetime="2018-03-14T13:00:00.000Z"><a href="/2018/03/15/r-rmarkdown/">2018-03-15</a></time>
+
+            
+    <div class="tags-row">
         
+            <a href="/tags/R-Markdown/" class="chip blue-grey">R Markdown</a>
         
-            <li>
-                <div class="collapsible-header active">
-                    <i class="fa fa-archive"></i>2018
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2018/03/15/r-rmarkdown/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2018-03-14T13:00:00.000Z">2018-03-15</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                Hello R Markdown
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
+            <a href="/tags/plot/" class="chip blue-grey">plot</a>
         
-            <li>
-                <div class="collapsible-header ">
-                    <i class="fa fa-archive"></i>2017
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2017/09/05/Sample/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2017-09-05T07:45:33.000Z">2017-09-05</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                Sample
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
+            <a href="/tags/regression/" class="chip blue-grey">regression</a>
         
-            <li>
-                <div class="collapsible-header ">
-                    <i class="fa fa-archive"></i>2016
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2016/09/22/Install-R-Packages-SQL-2016/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-09-22T03:29:17.000Z">2016-09-22</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                ROC - Receiver Operating Characteristic
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
-        
-    </ul>
+    </div>
+
+
+            <div class="toc blue-grey-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#R-Markdown"><span class="section table-of-contents-text">R Markdown</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Including-Plots"><span class="section table-of-contents-text">Including Plots</span></a></li></ol>
+</div>
+
+
+            <div class="entry blue-grey-link-context">
+                <h1 id="R-Markdown"><a href="#R-Markdown" class="headerlink" title="R Markdown"></a>R Markdown</h1><p>This is an R Markdown document. Please note this page was <strong>not</strong> rendered using the <a href="http://rmarkdown.rstudio.com" target="_blank" rel="noopener"><strong>rmarkdown</strong></a> package or <a href="http://pandoc.org" target="_blank" rel="noopener">Pandoc</a>. The R Markdown document is compiled to Markdown through <strong>knitr</strong>, and the Markdown document is rendered to HTML through <a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">Hexo’s Markdown renderer</a>.</p>
+<p>You can embed an R code chunk like this:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">summary(cars)</span><br><span class="line"><span class="comment">##      speed           dist    </span></span><br><span class="line"><span class="comment">##  Min.   : 4.0   Min.   :  2  </span></span><br><span class="line"><span class="comment">##  1st Qu.:12.0   1st Qu.: 26  </span></span><br><span class="line"><span class="comment">##  Median :15.0   Median : 36  </span></span><br><span class="line"><span class="comment">##  Mean   :15.4   Mean   : 43  </span></span><br><span class="line"><span class="comment">##  3rd Qu.:19.0   3rd Qu.: 56  </span></span><br><span class="line"><span class="comment">##  Max.   :25.0   Max.   :120</span></span><br><span class="line">fit &lt;- lm(dist ~ speed, data = cars)</span><br><span class="line">fit</span><br><span class="line"><span class="comment">## </span></span><br><span class="line"><span class="comment">## Call:</span></span><br><span class="line"><span class="comment">## lm(formula = dist ~ speed, data = cars)</span></span><br><span class="line"><span class="comment">## </span></span><br><span class="line"><span class="comment">## Coefficients:</span></span><br><span class="line"><span class="comment">## (Intercept)        speed  </span></span><br><span class="line"><span class="comment">##      -17.58         3.93</span></span><br></pre></td></tr></table></figure>
+<h1 id="Including-Plots"><a href="#Including-Plots" class="headerlink" title="Including Plots"></a>Including Plots</h1><p>You can also embed R plots:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">par(mar = c(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">pie(</span><br><span class="line">  c(<span class="number">280</span>, <span class="number">60</span>, <span class="number">20</span>),</span><br><span class="line">  c(<span class="string">'Sky'</span>, <span class="string">'Sunny side of pyramid'</span>, <span class="string">'Shady side of pyramid'</span>),</span><br><span class="line">  col = c(<span class="string">'#0292D8'</span>, <span class="string">'#F7EA39'</span>, <span class="string">'#C4B632'</span>),</span><br><span class="line">  init.angle = -<span class="number">50</span>, border = <span class="literal">NA</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">library</span>(<span class="string">"ggplot2"</span>) <span class="comment"># For plotting </span></span><br><span class="line"><span class="comment">## Warning: package 'ggplot2' was built under R version 3.4.3</span></span><br></pre></td></tr></table></figure>
+<p><img src="/figure/posts/2018-03-15-r-rmarkdown/pie-1.png" alt=""></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Plot the relationship between weight and miles per gallon  </span></span><br><span class="line">plot &lt;- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() + <span class="comment"># </span></span><br><span class="line">  geom_smooth(method = <span class="string">"lm"</span>) + theme_bw() + <span class="comment"># add linear model and make black and white</span></span><br><span class="line">  xlab(<span class="string">"Weight (1000lbs)"</span>) + ylab(<span class="string">"Miles per Gallon"</span>) <span class="comment"># Add axis labels</span></span><br><span class="line"></span><br><span class="line">plot</span><br></pre></td></tr></table></figure>
+<p><img src="/figure/posts/2018-03-15-r-rmarkdown/pie-2.png" alt=""></p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function() {
+                this.page.url = 'http://koushiknagarajan.com/2018/03/15/r-rmarkdown/';
+                this.page.identifier = '2018/03/15/r-rmarkdown/';
+            };
+            (function() {
+                var d = document,
+                    s = d.createElement('script');
+                s.src = '//koushiknagarajan.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', + new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
 
 
 </div>
