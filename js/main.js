@@ -79,7 +79,7 @@
         const roles = [
             'Agentic AI systems',
             'multi-agent architectures',
-            'Azure AI solutions',
+            'cloud-native AI solutions',
             'intelligent copilots',
             'agentic DevOps workflows',
             'AI-driven experiences'
