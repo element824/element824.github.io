@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a1a">
+    <title>404 — Not Found | Koushik Nagarajan</title>
+    <meta name="description" content="The page you're looking for doesn't exist.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .notfound {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .notfound__code {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(5rem, 20vw, 10rem);
+            font-weight: 700;
+            line-height: 1;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: -0.04em;
+        }
+        .notfound__title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            margin-bottom: 14px;
+        }
+        .notfound__text {
+            color: var(--text-muted);
+            max-width: 440px;
+            margin: 0 auto 32px;
+        }
+        .notfound__hint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-top: 28px;
+        }
+    </style>
+</head>
+<body>
+    <main class="notfound">
+        <div>
+            <div class="notfound__code">404</div>
+            <h1 class="notfound__title">Signal lost in the agent mesh.</h1>
+            <p class="notfound__text">The page you're looking for doesn't exist — or has been deprecated by a smarter agent.</p>
+            <a href="/" class="btn btn--primary">← Return Home</a>
+            <p class="notfound__hint">// error: route_not_found</p>
+        </div>
+    </main>
+</body>
+</html>
