@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a1a">
+    <title>Why Your AI Agent Keeps Forgetting: The Three Memory Layers That Fix It — Koushik Nagarajan</title>
+    <meta name="description" content="Most agents use only vector databases for memory — and they keep failing at multi-hop reasoning. Here's the three-layer architecture that actually fixes it.">
+    <meta name="author" content="Koushik Nagarajan">
+    <link rel="canonical" href="https://element824.github.io/blog/agent-memory-three-layers.html">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        :root {
+            --cyan: #00d4ff;
+            --purple: #7c3aed;
+            --pink: #ec4899;
+        }
+
+        .post-wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 6rem;
+        }
+
+        .post-back {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .8rem;
+            color: var(--cyan);
+            text-decoration: none;
+            opacity: 0.75;
+            transition: opacity 0.2s;
+            margin-bottom: 3rem;
+            margin-top: 7rem;
+            display: block;
+        }
+        .post-back:hover { opacity: 1; }
+
+        .post-header { margin-bottom: 3rem; }
+
+        .post-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: var(--cyan);
+            background: rgba(0,212,255,0.08);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 20px;
+            padding: .2rem .75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .post-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 700;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 1.25rem;
+        }
+
+        .post-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .78rem;
+            color: rgba(255,255,255,0.4);
+            flex-wrap: wrap;
+        }
+        .post-meta span { display: flex; align-items: center; gap: .35rem; }
+
+        .post-divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin: 2.5rem 0;
+        }
+
+        .post-body h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: .5rem;
+            border-bottom: 1px solid rgba(0,212,255,0.12);
+        }
+        .post-body h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            margin: 2rem 0 .75rem;
+        }
+        .post-body p {
+            font-size: 1.02rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 1.25rem;
+        }
+        .post-body ul, .post-body ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .post-body li {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.72);
+            margin-bottom: .4rem;
+        }
+        .post-body strong { color: rgba(255,255,255,0.95); }
+        .post-body em { color: var(--cyan); font-style: normal; }
+        .post-body a {
+            color: var(--cyan);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .post-body a:hover { color: var(--pink); }
+
+        pre, code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .post-body code {
+            background: rgba(0,212,255,0.07);
+            border: 1px solid rgba(0,212,255,0.15);
+            border-radius: 4px;
+            padding: .15rem .4rem;
+            font-size: .88em;
+            color: var(--cyan);
+        }
+        .post-body pre {
+            background: #0d0d1f;
+            border: 1px solid rgba(0,212,255,0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.75rem 0;
+            font-size: .88rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.8);
+        }
+        .post-body pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: inherit;
+            font-size: inherit;
+        }
+
+        /* Callout / scenario box */
+        .callout {
+            background: rgba(124,58,237,0.08);
+            border: 1px solid rgba(124,58,237,0.25);
+            border-left: 3px solid var(--purple);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+        }
+        .callout-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: var(--purple);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: .6rem;
+        }
+        .callout p { margin-bottom: .5rem; color: rgba(255,255,255,0.7); }
+        .callout p:last-child { margin-bottom: 0; }
+
+        /* Stat highlight */
+        .stat-block {
+            background: rgba(236,72,153,0.07);
+            border: 1px solid rgba(236,72,153,0.2);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .stat-block__icon { font-size: 1.5rem; flex-shrink: 0; }
+        .stat-block__text { font-size: .97rem; color: rgba(255,255,255,0.7); line-height: 1.7; }
+        .stat-block__text strong { color: var(--pink); }
+
+        /* Layer cards */
+        .layer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin: 1.75rem 0;
+        }
+        .layer-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .layer-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+        }
+        .layer-card--relational::before { background: linear-gradient(90deg, var(--cyan), transparent); }
+        .layer-card--vector::before { background: linear-gradient(90deg, var(--purple), transparent); }
+        .layer-card--graph::before { background: linear-gradient(90deg, var(--pink), transparent); }
+
+        .layer-card__num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: .35rem;
+        }
+        .layer-card__title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: .6rem;
+        }
+        .layer-card--relational .layer-card__title { color: var(--cyan); }
+        .layer-card--vector .layer-card__title { color: #a78bfa; }
+        .layer-card--graph .layer-card__title { color: var(--pink); }
+        .layer-card p {
+            font-size: .95rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Mermaid container */
+        .diagram-wrap {
+            background: #090916;
+            border: 1px solid rgba(0,212,255,0.15);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        .diagram-wrap pre.mermaid {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            font-size: 1rem;
+        }
+        .diagram-caption {
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .75rem;
+            color: rgba(255,255,255,0.3);
+            margin-top: 1rem;
+        }
+
+        /* Architecture table */
+        .arch-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.75rem 0;
+            font-size: .92rem;
+        }
+        .arch-table th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            padding: .75rem 1rem;
+            border-bottom: 1px solid rgba(0,212,255,0.2);
+            text-align: left;
+        }
+        .arch-table td {
+            padding: .85rem 1rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            vertical-align: top;
+        }
+        .arch-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .arch-table a { color: var(--cyan); }
+
+        /* References */
+        .refs-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .refs-list li {
+            padding: .65rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: .9rem;
+        }
+        .refs-list li:last-child { border-bottom: none; }
+
+        /* Author card */
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        .author-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .author-info__name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .author-info__bio {
+            font-size: .88rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+            margin-top: .25rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="nav" id="nav">
+        <div class="nav__container">
+            <a href="/" class="nav__brand" aria-label="Koushik Nagarajan — home">
+                <span class="nav__brand-mark">KN</span>
+                <span class="nav__brand-text">Koushik Nagarajan</span>
+            </a>
+            <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="nav__menu" id="nav-menu" aria-label="Main navigation">
+                <a href="/#about" class="nav__link">About</a>
+                <a href="/#expertise" class="nav__link">Expertise</a>
+                <a href="/#leadership" class="nav__link">Leadership</a>
+                <a href="/blog/" class="nav__link" aria-current="page">Writing</a>
+                <a href="/#contact" class="nav__link nav__link--cta">Connect</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="post-wrap">
+            <a href="/blog/" class="post-back">← Back to Writing</a>
+
+            <header class="post-header">
+                <div class="post-tag">✦ AI Architecture</div>
+                <h1 class="post-title">Why Your AI Agent Keeps Forgetting: The Three Memory Layers That Fix It</h1>
+                <p class="post-subtitle">Vector databases are powerful — but they're not enough. Here's why agents built on a single memory layer keep failing, and the three-layer architecture that finally gets it right.</p>
+                <div class="post-meta">
+                    <span>📅 April 24, 2026</span>
+                    <span>·</span>
+                    <span>⏱ 6 min read</span>
+                    <span>·</span>
+                    <span>Koushik Nagarajan</span>
+                </div>
+            </header>
+
+            <hr class="post-divider">
+
+            <article class="post-body">
+
+                <h2>The Agent That Couldn't Connect the Dots</h2>
+
+                <p>
+                    You've built an AI agent to help your engineering team stay on top of project work. You feed it everything: Jira tickets, Confluence docs, Slack threads, sprint planning notes, architecture decisions. You wire up a vector database, embed it all, and ship it. The team starts using it.
+                </p>
+
+                <p>
+                    At first, it seems great. Ask it "What's the current status of the auth service refactor?" — it nails it. Ask it "Who's been working on the payment gateway?" — it finds the right Slack messages. But then someone asks a slightly harder question:
+                </p>
+
+                <div class="callout">
+                    <div class="callout-label">💬 The question that breaks it</div>
+                    <p><strong>"Which engineers on the payments team have unresolved blockers that are holding up Q2 deliverables?"</strong></p>
+                    <p>The agent returns a generic list of open Jira tickets. It doesn't connect that Sarah owns the payments gateway, that she raised a blocker in Monday's standup Slack thread, that the blocker involves a dependency owned by the infra team, and that the infra team's sprint is already over capacity per last week's planning doc.</p>
+                    <p>Four facts. Four different sources. Each one retrievable in isolation. None of them connected.</p>
+                </div>
+
+                <p>
+                    This isn't a data problem. All of that information exists in the knowledge base. The agent can recall any individual fact with high confidence. What it cannot do is <strong>reason across the chain of relationships that links them together</strong>.
+                </p>
+
+                <p>
+                    This is the fundamental limitation of a vector-only memory architecture — and it's the most common mistake teams make when building production agents.
+                </p>
+
+                <h2>Bigger Context Windows Don't Fix It</h2>
+
+                <p>
+                    The instinct is to throw more context at the problem. Dump everything into a 128K or 1M token window and let the model figure it out. This feels like it should work. It mostly doesn't.
+                </p>
+
+                <div class="stat-block">
+                    <div class="stat-block__icon">📉</div>
+                    <div class="stat-block__text">
+                        Research from Stanford and Berkeley found that LLM recall <strong>drops by 30% or more</strong> when relevant information is positioned in the middle of a long context, rather than near the start or end. This is the <strong>"Lost in the Middle" effect</strong> (Liu et al., 2023). A bigger context window isn't a memory solution — it's a larger haystack with a duller needle.
+                    </div>
+                </div>
+
+                <p>
+                    The model doesn't have a filing system. It has attention — and attention has limits. Stuffing more tokens into the context is like solving a messy desk by buying a bigger desk. Eventually, everything gets lost faster.
+                </p>
+
+                <p>
+                    The real fix requires rethinking memory as a <strong>layered architecture</strong>, not a single store.
+                </p>
+
+                <h2>The Three Memory Layers</h2>
+
+                <p>
+                    World-class agent memory systems combine three complementary layers, each solving a different part of the problem. Used together, they give agents the ability to recall facts precisely, understand semantic meaning, and reason across complex relationships.
+                </p>
+
+                <div class="layer-grid">
+                    <div class="layer-card layer-card--relational">
+                        <div class="layer-card__num">Layer 01</div>
+                        <div class="layer-card__title">Relational Layer — Provenance & Structure</div>
+                        <p>
+                            A traditional relational database (Postgres, SQLite, etc.) that stores <em>structured facts with context</em>: where did this information come from? When was it recorded? Who created it, who has access to it, and when does it expire? This layer is the source of truth for provenance. It answers the question <strong>"where did this come from, and can I trust it?"</strong> — something a vector store fundamentally cannot answer.
+                        </p>
+                    </div>
+                    <div class="layer-card layer-card--vector">
+                        <div class="layer-card__num">Layer 02</div>
+                        <div class="layer-card__title">Vector Layer — Semantic Similarity</div>
+                        <p>
+                            A vector index (pgvector, Pinecone, Weaviate, etc.) that stores <em>embedded representations of meaning</em>. This layer answers <strong>"what is this similar to?"</strong> It enables fuzzy, intent-driven retrieval: finding docs about "payment system failures" when the user asked about "transaction errors." It's the semantic bridge between natural language and stored knowledge. Powerful for initial retrieval — but blind to relationships.
+                        </p>
+                    </div>
+                    <div class="layer-card layer-card--graph">
+                        <div class="layer-card__num">Layer 03</div>
+                        <div class="layer-card__title">Graph Layer — Relationships & Multi-Hop Reasoning</div>
+                        <p>
+                            A property graph database (Neo4j, Apache AGE, etc.) that stores <em>explicit connections between entities</em>. This layer answers <strong>"how do these facts connect?"</strong> It enables the kind of multi-hop reasoning our project manager example requires: Sarah → owns → payments gateway → blocked by → infra dependency → owned by → Team X → sprint status: over-capacity. Without a graph layer, that chain is invisible. With it, it's a three-hop traversal.
+                        </p>
+                    </div>
+                </div>
+
+                <h2>How the Three Layers Work Together</h2>
+
+                <p>
+                    These layers aren't alternatives — they're complements. A query flows through all three, each contributing what it does best.
+                </p>
+
+                <div class="diagram-wrap">
+                    <pre class="mermaid">
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#1a1a2e', 'primaryTextColor': '#e2e8f0', 'primaryBorderColor': '#00d4ff', 'lineColor': '#7c3aed', 'secondaryColor': '#0d0d1f', 'tertiaryColor': '#0a0a1a', 'edgeLabelBackground': '#0a0a1a', 'clusterBkg': '#0d0d1f', 'clusterBorder': '#7c3aed', 'titleColor': '#00d4ff', 'nodeTextColor': '#fff'}}}%%
+flowchart LR
+    Q[/"🔍 User Query"/]:::query --> V
+
+    subgraph MEM ["  🧠 Memory Architecture  "]
+        V["Vector Layer\n(semantic search)\n📐 pgvector"]:::vector
+        R["Relational Layer\n(provenance + ACL)\n🗃️ Postgres"]:::relational
+        G["Graph Layer\n(relationships)\n🕸️ Neo4j / AGE"]:::graph
+        V -->|"candidate entities"| G
+        G -->|"hop traversal"| R
+        V -->|"ACL filter"| R
+    end
+
+    MEM --> CTX["Assembled Context\n(ranked, filtered,\nrelationship-aware)"]:::ctx
+    CTX --> LLM["🤖 LLM Response\n(grounded & precise)"]:::llm
+
+    classDef query fill:#7c3aed,stroke:#a78bfa,color:#fff
+    classDef vector fill:#1a1040,stroke:#7c3aed,color:#c4b5fd
+    classDef relational fill:#001a22,stroke:#00d4ff,color:#7dd3fc
+    classDef graph fill:#220011,stroke:#ec4899,color:#f9a8d4
+    classDef ctx fill:#0d0d1f,stroke:#00d4ff,color:#e2e8f0
+    classDef llm fill:#0a0a1a,stroke:#00d4ff,color:#00d4ff
+                    </pre>
+                    <p class="diagram-caption">Fig 1. Query flows through all three layers; each contributes what it does best.</p>
+                </div>
+
+                <p>
+                    The flow in practice:
+                </p>
+                <ol>
+                    <li>The user's query is embedded and hits the <strong>vector layer</strong> first, retrieving semantically relevant candidate documents and entities.</li>
+                    <li>Those entities are handed to the <strong>graph layer</strong>, which traverses relationships — connecting engineers to tickets, tickets to blockers, blockers to dependent teams.</li>
+                    <li>Results are filtered through the <strong>relational layer</strong>, which checks provenance: is this information current? Does this user have access? What's the source confidence?</li>
+                    <li>The assembled, relationship-aware context is passed to the LLM — which now has everything it needs to answer the question correctly.</li>
+                </ol>
+
+                <h2>Practical Architecture Options</h2>
+
+                <p>
+                    The good news: you don't need three separate managed services to get started. Here are the most practical paths depending on your stack:
+                </p>
+
+                <table class="arch-table">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Stack</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>pgvector + Apache AGE</strong></td>
+                            <td>Postgres extensions</td>
+                            <td>Both layers in one Postgres instance. Great for self-hosted setups. ⚠️ <em>Apache AGE is not available on Neon's managed Postgres</em> — requires your own Postgres host or Docker.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>pgvector + Neo4j AuraDB</strong></td>
+                            <td>Postgres + managed graph</td>
+                            <td>Best of both worlds: Neon-compatible for vectors + <a href="https://neo4j.com/cloud/platform/aura-graph-database/" target="_blank">Neo4j AuraDB free tier</a> for the graph layer. Production-ready with zero graph infra to manage.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cognee</strong></td>
+                            <td>Open-source orchestration</td>
+                            <td><a href="https://github.com/topoteretes/cognee" target="_blank">Cognee</a> automatically orchestrates all three layers. You give it raw documents; it handles embedding, relationship extraction, and graph construction. Lowest barrier to get started.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Docker (self-hosted)</strong></td>
+                            <td>Apache AGE in Docker</td>
+                            <td>The fastest way to get Apache AGE running locally or on a VPS with full extension support.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>For the Docker option, getting Apache AGE running is a single command:</p>
+
+<pre><code>docker run -p 5432:5432 \
+  -e POSTGRES_PASSWORD=secret \
+  apache/age:latest</code></pre>
+
+                <p>
+                    Then enable both extensions in your database:
+                </p>
+
+<pre><code>-- In your connected DB:
+CREATE EXTENSION IF NOT EXISTS age;
+CREATE EXTENSION IF NOT EXISTS vector;
+
+LOAD 'age';
+SET search_path = ag_catalog, "$user", public;</code></pre>
+
+                <p>
+                    From there, you can store vector embeddings in a standard <code>vector(1536)</code> column, and model relationships using AGE's Cypher query interface — all within the same Postgres connection.
+                </p>
+
+                <h2>Where to Start</h2>
+
+                <p>
+                    If you're building a new agent from scratch, <strong>start with Cognee</strong> — it removes all the architectural decisions and gets you a working three-layer memory in under an hour. If you're adding memory to an existing Postgres-backed system, reach for <strong>pgvector + Neo4j AuraDB</strong>. If you're self-hosted and want full control, <strong>Apache AGE + pgvector via Docker</strong> is the cleanest single-service path.
+                </p>
+
+                <p>
+                    The key insight is this: vector similarity is a starting point, not a destination. The moment your agent needs to reason about <em>how things relate</em> — ownership, dependency, causality, chronology — you need a graph layer. And the moment your agent needs to reason about <em>whether to trust a fact</em> — who added it, when, from what source — you need a relational layer.
+                </p>
+
+                <p>
+                    Memory in production agents is an architectural decision, not a configuration option. Build it with all three layers, and your agent won't just remember things. It'll understand them.
+                </p>
+
+                <hr class="post-divider">
+
+                <h2>References & Inspirations</h2>
+
+                <ul class="refs-list">
+                    <li>📊 <a href="https://blog.dailydoseofds.com/p/top-ai-labs-share-an-agent-memory" target="_blank" rel="noopener">Top AI Labs Share an Agent Memory Architecture</a> — Daily Dose of DS. The original deep dive into how leading labs approach layered memory in production agents.</li>
+                    <li>🧠 <a href="https://github.com/topoteretes/cognee" target="_blank" rel="noopener">Cognee — Open-source memory for AI agents</a> — topoteretes/cognee on GitHub. Orchestrates relational, vector, and graph layers automatically from raw input documents.</li>
+                    <li>🕸️ <a href="https://age.apache.org/" target="_blank" rel="noopener">Apache AGE</a> — A graph extension for PostgreSQL. Enables graph database functionality using Cypher query language inside Postgres.</li>
+                    <li>📄 <a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle: How Language Models Use Long Contexts</a> — Liu et al., Stanford / Berkeley, 2023. Demonstrates the 30%+ recall degradation when relevant context is positioned mid-sequence.</li>
+                    <li>📚 <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy's LLM OS / LLM Wiki</a> — Andrej Karpathy's notes on the evolving architecture of LLMs as operating systems, including memory hierarchies.</li>
+                </ul>
+
+                <div class="author-card">
+                    <div class="author-avatar">KN</div>
+                    <div class="author-info">
+                        <div class="author-info__name">Koushik Nagarajan</div>
+                        <div class="author-info__bio">Engineering leader and AI architect. Writing about the patterns, pitfalls, and principles behind building intelligent systems that actually work in production.</div>
+                    </div>
+                </div>
+
+                <hr class="post-divider">
+                <a href="/blog/" class="post-back">← Back to Writing</a>
+
+            </article>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>© <span id="year">2026</span> Koushik Nagarajan</p>
+            <p class="footer__meta">Designed with intent.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                background: '#0a0a1a',
+                primaryColor: '#1a1040',
+                primaryTextColor: '#e2e8f0',
+                primaryBorderColor: '#7c3aed',
+                lineColor: '#00d4ff',
+                secondaryColor: '#001a22',
+                tertiaryColor: '#220011',
+                edgeLabelBackground: '#0a0a1a',
+                clusterBkg: '#0d0d1f',
+                clusterBorder: '#7c3aed',
+                titleColor: '#00d4ff',
+                nodeTextColor: '#ffffff',
+                fontFamily: 'JetBrains Mono, monospace'
+            }
+        });
+    </script>
+    <script src="/js/main.js" defer></script>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
