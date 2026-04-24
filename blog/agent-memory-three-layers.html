@@ -477,21 +477,21 @@
 
                 <div class="diagram-wrap">
                     <pre class="mermaid">
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#1a1a2e', 'primaryTextColor': '#e2e8f0', 'primaryBorderColor': '#00d4ff', 'lineColor': '#7c3aed', 'secondaryColor': '#0d0d1f', 'tertiaryColor': '#0a0a1a', 'edgeLabelBackground': '#0a0a1a', 'clusterBkg': '#0d0d1f', 'clusterBorder': '#7c3aed', 'titleColor': '#00d4ff', 'nodeTextColor': '#fff'}}}%%
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#1a1a2e", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#00d4ff", "lineColor": "#7c3aed", "secondaryColor": "#0d0d1f", "tertiaryColor": "#0a0a1a", "edgeLabelBackground": "#0a0a1a", "clusterBkg": "#0d0d1f", "clusterBorder": "#7c3aed", "titleColor": "#00d4ff", "nodeTextColor": "#fff"}}}%%
 flowchart LR
-    Q[/"🔍 User Query"/]:::query --> V
+    Q["User Query"]:::query --> V
 
-    subgraph MEM ["  🧠 Memory Architecture  "]
-        V["Vector Layer\n(semantic search)\n📐 pgvector"]:::vector
-        R["Relational Layer\n(provenance + ACL)\n🗃️ Postgres"]:::relational
-        G["Graph Layer\n(relationships)\n🕸️ Neo4j / AGE"]:::graph
-        V -->|"candidate entities"| G
-        G -->|"hop traversal"| R
-        V -->|"ACL filter"| R
+    subgraph MEM ["Memory Architecture"]
+        V["Vector Layer<br/>semantic search<br/>pgvector"]:::vector
+        R["Relational Layer<br/>provenance + access<br/>Postgres"]:::relational
+        G["Graph Layer<br/>relationships<br/>Neo4j / AGE"]:::graph
+        V -->|candidate entities| G
+        G -->|hop traversal| R
+        V -->|access filter| R
     end
 
-    MEM --> CTX["Assembled Context\n(ranked, filtered,\nrelationship-aware)"]:::ctx
-    CTX --> LLM["🤖 LLM Response\n(grounded & precise)"]:::llm
+    MEM --> CTX["Assembled Context<br/>ranked and filtered"]:::ctx
+    CTX --> LLM["LLM Response<br/>grounded and precise"]:::llm
 
     classDef query fill:#7c3aed,stroke:#a78bfa,color:#fff
     classDef vector fill:#1a1040,stroke:#7c3aed,color:#c4b5fd
