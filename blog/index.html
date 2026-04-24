@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a1a">
+    <title>Writing — Koushik Nagarajan</title>
+    <meta name="description" content="Thoughts on AI architecture, agentic systems, and the future of intelligent software — by Koushik Nagarajan.">
+    <meta name="author" content="Koushik Nagarajan">
+    <link rel="canonical" href="https://element824.github.io/blog/">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .blog-hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+            padding: 3rem 0 6rem;
+        }
+        .post-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(0,212,255,0.12);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: border-color 0.3s, transform 0.3s, background 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .post-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,212,255,0.05) 0%, rgba(124,58,237,0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .post-card:hover {
+            border-color: rgba(0,212,255,0.4);
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.05);
+        }
+        .post-card:hover::before { opacity: 1; }
+        .post-card__tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: var(--cyan, #00d4ff);
+            background: rgba(0,212,255,0.08);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 20px;
+            padding: .2rem .7rem;
+            width: fit-content;
+        }
+        .post-card__title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.3;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .post-card__excerpt {
+            font-size: .95rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            flex: 1;
+        }
+        .post-card__meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .75rem;
+            color: rgba(255,255,255,0.4);
+        }
+        .post-card__arrow {
+            margin-left: auto;
+            font-size: 1.1rem;
+            color: var(--cyan, #00d4ff);
+            transition: transform 0.2s;
+        }
+        .post-card:hover .post-card__arrow { transform: translateX(4px); }
+        .blog-empty {
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            padding: 4rem 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="nav" id="nav">
+        <div class="nav__container">
+            <a href="/" class="nav__brand" aria-label="Koushik Nagarajan — home">
+                <span class="nav__brand-mark">KN</span>
+                <span class="nav__brand-text">Koushik Nagarajan</span>
+            </a>
+            <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="nav__menu" id="nav-menu" aria-label="Main navigation">
+                <a href="/#about" class="nav__link">About</a>
+                <a href="/#expertise" class="nav__link">Expertise</a>
+                <a href="/#leadership" class="nav__link">Leadership</a>
+                <a href="/blog/" class="nav__link" aria-current="page">Writing</a>
+                <a href="/#contact" class="nav__link nav__link--cta">Connect</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="blog-hero">
+            <div class="container">
+                <p class="section__eyebrow">Writing</p>
+                <h1 class="section__title">Thoughts on <span class="grad">AI & the Future</span><br>of Intelligent Software.</h1>
+                <p style="color:rgba(255,255,255,0.55); max-width:540px; margin:1rem auto 0; line-height:1.8;">
+                    Perspectives on AI architecture, agentic systems, developer philosophy, and the ideas shaping how we build.
+                </p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="blog-grid">
+                <a href="/blog/sculpt-not-spec.html" class="post-card">
+                    <span class="post-card__tag">✦ AI Philosophy</span>
+                    <h2 class="post-card__title">Sculpt, Not Spec: The New Philosophy of AI-Assisted Development</h2>
+                    <p class="post-card__excerpt">Stop writing exhaustive specs. The way we collaborate with AI on software is fundamentally changing — and the metaphor that makes it click is sculpture.</p>
+                    <div class="post-card__meta">
+                        <span>Apr 24, 2026</span>
+                        <span>·</span>
+                        <span>7 min read</span>
+                        <span class="post-card__arrow">→</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>© <span id="year">2026</span> Koushik Nagarajan</p>
+            <p class="footer__meta">Designed with intent.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js" defer></script>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
