@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a1a">
+    <title>Sculpt, Not Spec — Koushik Nagarajan</title>
+    <meta name="description" content="Stop writing exhaustive specs. The way we collaborate with AI on software is fundamentally changing — and the metaphor that makes it click is sculpture.">
+    <meta name="author" content="Koushik Nagarajan">
+    <link rel="canonical" href="https://element824.github.io/blog/sculpt-not-spec.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Sculpt, Not Spec: The New Philosophy of AI-Assisted Development">
+    <meta property="og:description" content="Stop writing exhaustive specs. The way we collaborate with AI on software is fundamentally changing — and the metaphor that makes it click is sculpture.">
+    <meta property="og:url" content="https://element824.github.io/blog/sculpt-not-spec.html">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        :root {
+            --cyan: #00d4ff;
+            --purple: #7c3aed;
+            --pink: #ec4899;
+        }
+
+        .post-header {
+            padding: 8rem 0 3rem;
+            text-align: center;
+            position: relative;
+        }
+        .post-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 80px; height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            border-radius: 2px;
+        }
+        .post-tag {
+            display: inline-flex;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .75rem;
+            color: var(--cyan);
+            background: rgba(0,212,255,0.08);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 20px;
+            padding: .25rem .9rem;
+            margin-bottom: 1.5rem;
+        }
+        .post-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: 700;
+            line-height: 1.15;
+            background: linear-gradient(135deg, #fff 0%, rgba(0,212,255,0.9) 50%, rgba(124,58,237,0.9) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+        .post-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .78rem;
+            color: rgba(255,255,255,0.45);
+            flex-wrap: wrap;
+        }
+        .post-meta__dot { opacity: 0.4; }
+
+        .post-body {
+            max-width: 720px;
+            margin: 4rem auto;
+            padding: 0 1.5rem 6rem;
+        }
+        .post-body p {
+            font-size: 1.08rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1.6rem;
+        }
+        .post-body h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            margin: 3rem 0 1rem;
+            background: linear-gradient(135deg, #fff 0%, rgba(0,212,255,0.85) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .post-body h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            margin: 2rem 0 .75rem;
+        }
+        .post-body strong {
+            color: #fff;
+            font-weight: 600;
+        }
+        .post-body a {
+            color: var(--cyan);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: rgba(0,212,255,0.4);
+            transition: text-decoration-color 0.2s;
+        }
+        .post-body a:hover {
+            text-decoration-color: var(--cyan);
+        }
+        .post-body blockquote {
+            border-left: 3px solid var(--purple);
+            margin: 2rem 0;
+            padding: 1rem 1.5rem;
+            background: rgba(124,58,237,0.06);
+            border-radius: 0 8px 8px 0;
+        }
+        .post-body blockquote p {
+            color: rgba(255,255,255,0.7);
+            font-style: italic;
+            margin: 0;
+            font-size: 1.05rem;
+        }
+        .post-body code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .88em;
+            background: rgba(0,212,255,0.08);
+            color: var(--cyan);
+            padding: .15em .45em;
+            border-radius: 4px;
+        }
+
+        .post-divider {
+            width: 60px; height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            border-radius: 2px;
+            margin: 3rem 0;
+        }
+
+        /* Author card */
+        .author-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(0,212,255,0.15);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            margin: 4rem 0 2rem;
+        }
+        .author-card__avatar {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            border: 2px solid rgba(0,212,255,0.3);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        .author-card__name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: .3rem;
+        }
+        .author-card__role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .75rem;
+            color: var(--cyan);
+            margin-bottom: .6rem;
+        }
+        .author-card__bio {
+            font-size: .9rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.65;
+            margin: 0;
+        }
+        .author-card__links {
+            display: flex;
+            gap: .75rem;
+            margin-top: .75rem;
+        }
+        .author-card__link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: var(--cyan);
+            background: rgba(0,212,255,0.08);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 20px;
+            padding: .2rem .7rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .author-card__link:hover { background: rgba(0,212,255,0.15); }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .8rem;
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            margin-bottom: 4rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--cyan); }
+
+        /* Credit box */
+        .credit-box {
+            background: rgba(124,58,237,0.07);
+            border: 1px solid rgba(124,58,237,0.2);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin: 2.5rem 0;
+            font-size: .88rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+        }
+        .credit-box strong { color: rgba(255,255,255,0.85); }
+        .credit-box a { color: var(--purple); text-underline-offset: 3px; }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="nav" id="nav">
+        <div class="nav__container">
+            <a href="/" class="nav__brand" aria-label="Koushik Nagarajan — home">
+                <span class="nav__brand-mark">KN</span>
+                <span class="nav__brand-text">Koushik Nagarajan</span>
+            </a>
+            <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="nav__menu" id="nav-menu" aria-label="Main navigation">
+                <a href="/#about" class="nav__link">About</a>
+                <a href="/#expertise" class="nav__link">Expertise</a>
+                <a href="/#leadership" class="nav__link">Leadership</a>
+                <a href="/blog/" class="nav__link">Writing</a>
+                <a href="/#contact" class="nav__link nav__link--cta">Connect</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="post-header">
+            <div class="container">
+                <span class="post-tag">✦ AI Philosophy</span>
+                <h1 class="post-title">Sculpt, Not Spec: The New Philosophy of AI-Assisted Development</h1>
+                <div class="post-meta">
+                    <span>Koushik Nagarajan</span>
+                    <span class="post-meta__dot">·</span>
+                    <span>April 24, 2026</span>
+                    <span class="post-meta__dot">·</span>
+                    <span>7 min read</span>
+                </div>
+            </div>
+        </div>
+
+        <article class="post-body" id="main">
+            <a href="/blog/" class="back-link">← Back to Writing</a>
+
+            <p>
+                There's a moment in most AI-assisted development sessions where the old mental model breaks down. You've written your detailed prompt — a careful specification of what you want, constraints, edge cases, preferred patterns — and the AI gives you something that's 70% right, 20% interesting, and 10% completely wrong. So you iterate. And iterate. And slowly, through that back-and-forth, something coherent emerges.
+            </p>
+            <p>
+                That process has a name now. <strong>Scott Hanselman</strong> and <strong>Mark Russinovich</strong> from Microsoft captured it perfectly in their talk: <em>Sculpt, Not Spec</em>. And once you hear it, you can't unsee it.
+            </p>
+
+            <h2>The Spec Is Dead. Long Live the Chisel.</h2>
+            <p>
+                Traditional software development leaned heavily on the specification. Before a line of code was written, you'd define inputs, outputs, behaviours, constraints, error states. The spec was the blueprint. Developers were the builders who faithfully executed it.
+            </p>
+            <p>
+                AI-assisted development doesn't work that way. You don't hand the AI a blueprint and walk away. You start with a rough idea — a lump of marble, if you will — and you begin to shape it. You push here, refine there, cut away what doesn't belong. Each exchange is a chisel stroke. The sculpture emerges through iteration, not specification.
+            </p>
+            <p>
+                This is a profound mental shift. The specification mindset says: <em>I must define the problem completely before I can solve it.</em> The sculpting mindset says: <em>I can begin shaping even before I fully understand the final form.</em>
+            </p>
+
+            <h2>Vibe Coding: A Gift and a Warning</h2>
+            <p>
+                <strong>Andrej Karpathy</strong> coined the term <em>vibe coding</em> — the practice of building software by feel, guided by natural language, without necessarily understanding every line of the output. Just describe what you want, accept what comes, keep nudging until it works. It's fluid, fast, and genuinely joyful.
+            </p>
+            <p>
+                As an AI professional, I find vibe coding fascinating — and slightly dangerous if taken too far. It democratises creation in extraordinary ways. A product manager can prototype an internal tool. A researcher can build a data pipeline. A designer can ship a working component. The barrier to turning ideas into software has collapsed.
+            </p>
+            <p>
+                But here's the tension Hanselman and Russinovich are careful to surface: <strong>lowering the barrier to creation doesn't lower the stakes of what you're creating.</strong> Code that touches production, handles user data, or interacts with external systems carries real consequences. Vibe coding without comprehension is how you accidentally ship a security vulnerability wrapped in a beautiful UI.
+            </p>
+
+            <blockquote>
+                <p>"The AI can generate the sculpture. But you're still the sculptor. You decide what belongs and what gets cut away."</p>
+            </blockquote>
+
+            <h2>Guidance Over Instruction</h2>
+            <p>
+                One of the most practical insights from the talk: <strong>guidance beats explicit instruction.</strong> When you try to over-specify everything upfront — anticipating every edge case, codifying every constraint — you paradoxically get worse results. The AI gets lost in the details. The spec becomes a cage.
+            </p>
+            <p>
+                Instead, provide direction. Give the AI enough context to reason well, then let it fill in the gaps. Review the output. Ask it to adjust. Ask it to explain its choices. The conversation is the workflow.
+            </p>
+            <p>
+                This maps to something I've observed repeatedly in my own work with agentic systems: agents that are over-constrained underperform compared to agents given clear goals, good context, and the latitude to reason. The same principle applies when you're the human in the loop.
+            </p>
+
+            <h2>Context Is the Real Moat</h2>
+            <p>
+                If guidance beats instruction, then <strong>context is the foundation of everything.</strong> The AI's output quality is almost entirely determined by how well it understands the problem space. Not just the current prompt — the surrounding knowledge: your codebase's conventions, your user's mental model, the business constraint you haven't stated explicitly because it feels obvious.
+            </p>
+            <p>
+                This is why investing in context management is one of the highest-leverage things a team can do today. Good context windows, well-structured system prompts, reference documents, examples of prior decisions — these aren't overhead. They're the difference between an AI that sculpts with you and one that just generates noise.
+            </p>
+            <p>
+                The teams I've seen get the most out of AI-assisted development aren't the ones with the best prompts. They're the ones who've built the richest context — a living understanding of their domain that they continuously refine and share with their AI collaborators.
+            </p>
+
+            <h2>Human Oversight Is Not Optional</h2>
+            <p>
+                The sculpting metaphor is elegant, but it contains a serious responsibility: <strong>the sculptor must understand the material.</strong> Michelangelo knew marble. He understood how it would fracture, how light would interact with it, how it would age. His mastery wasn't just aesthetic — it was structural.
+            </p>
+            <p>
+                We can't outsource our understanding of what we're building. Hanselman and Russinovich are clear on this: AI-assisted development amplifies your capabilities, but it doesn't replace judgment. The human remains accountable for the output. You need to review it, understand it — at least architecturally — and own it.
+            </p>
+            <p>
+                This is especially true as the scope of AI assistance grows. When an AI writes a function, review is straightforward. When an AI designs a subsystem, the stakes compound. Human oversight isn't bureaucratic friction. It's the quality gate that keeps the sculpture from crumbling.
+            </p>
+
+            <h2>What Changes for Us</h2>
+            <p>
+                So what does this mean practically, for those of us building AI-native teams and systems?
+            </p>
+            <p>
+                First: <strong>reframe your workflow.</strong> Stop thinking about AI as a tool you use to execute a spec. Start thinking about it as a collaborator you shape ideas with. Your first output is never the final output — and that's fine. That's the point.
+            </p>
+            <p>
+                Second: <strong>invest in context infrastructure.</strong> Document your decisions. Build rich system prompts. Create reference examples. The quality of your AI collaborations will rise with the quality of the context you provide.
+            </p>
+            <p>
+                Third: <strong>keep your hands on the chisel.</strong> Delegate freely, but review deliberately. The more powerful the AI, the more important your judgment becomes — not less. Vibe your way to a prototype; then understand what you've built before you ship it.
+            </p>
+            <p>
+                The sculpture is emerging. Make sure you're the one holding the chisel.
+            </p>
+
+            <div class="post-divider"></div>
+
+            <div class="credit-box">
+                <strong>Credit &amp; Inspiration</strong><br>
+                This post was inspired by the talk <em>"Sculpt, not Spec"</em> by <strong>Scott Hanselman &amp; Mark Russinovich</strong> (Microsoft) — <a href="https://youtu.be/IZRWzXjaXxM" target="_blank" rel="noopener">watch on YouTube ↗</a>. The concept of <em>vibe coding</em> was coined by <strong>Andrej Karpathy</strong>. The synthesis and perspective here are my own.
+            </div>
+
+            <div class="author-card">
+                <img class="author-card__avatar" src="https://github.com/element824.png" alt="Koushik Nagarajan" width="64" height="64" loading="lazy">
+                <div>
+                    <div class="author-card__name">Koushik Nagarajan</div>
+                    <div class="author-card__role">AI Architect · Data Storyteller · Technology Educator</div>
+                    <p class="author-card__bio">
+                        23+ years in technology, focused on Agentic AI, multi-cloud architectures, and making complex AI concepts accessible. Based in Australia.
+                    </p>
+                    <div class="author-card__links">
+                        <a href="https://www.linkedin.com/in/koushiknagarajan/" class="author-card__link" target="_blank" rel="noopener">LinkedIn</a>
+                        <a href="https://github.com/element824" class="author-card__link" target="_blank" rel="noopener">GitHub</a>
+                        <a href="/blog/" class="author-card__link">More Writing</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>© <span id="year">2026</span> Koushik Nagarajan</p>
+            <p class="footer__meta">Designed with intent.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js" defer></script>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
