@@ -24,6 +24,10 @@ The design is dark, typographic, and precise: `Space Grotesk` for headings, `Jet
 │   ├── cognitive-surrender.html
 │   ├── agent-memory-three-layers.html
 │   └── sculpt-not-spec.html
+├── drafts/
+│   ├── README.md           # Draft workflow docs
+│   ├── template.html       # Base template for every new post
+│   └── *.html              # Active drafts awaiting approval
 ├── css/
 │   └── style.css           # Global stylesheet
 ├── js/
@@ -59,6 +63,18 @@ The site uses a small set of reusable CSS components for post bodies:
 - **`.author-card`** — author bio footer
 
 ---
+
+## Publishing Workflow
+
+All new posts go through a **draft → review → publish** flow:
+
+1. **Brief Po** — describe the topic and your angle
+2. **Draft** — Po writes the HTML into `drafts/slug.html` using `drafts/template.html`
+3. **Review** — Po sends a summary (title, subtitle, sections, read time) for approval
+4. **Publish** — on confirmation, Po moves the file to `blog/`, adds the card to `blog/index.html`, commits and pushes
+5. **Live** — GitHub Pages auto-deploys within ~30 seconds
+
+Nothing in `drafts/` ever goes live without explicit sign-off.
 
 ## Deployment
 

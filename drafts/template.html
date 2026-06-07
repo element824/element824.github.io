@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a1a">
+    <title>POST_TITLE — Koushik Nagarajan</title>
+    <meta name="description" content="POST_DESCRIPTION">
+    <meta name="author" content="Koushik Nagarajan">
+    <link rel="canonical" href="https://element824.github.io/blog/POST_SLUG.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="POST_TITLE">
+    <meta property="og:description" content="POST_DESCRIPTION">
+    <meta property="og:url" content="https://element824.github.io/blog/POST_SLUG.html">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        :root {
+            --cyan: #00d4ff;
+            --purple: #7c3aed;
+            --pink: #ec4899;
+        }
+
+        /* ─── Post layout ─── */
+        .post-wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 6rem;
+        }
+        .post-back {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .8rem;
+            color: var(--cyan);
+            text-decoration: none;
+            opacity: 0.75;
+            transition: opacity 0.2s;
+            margin-bottom: 3rem;
+            margin-top: 7rem;
+        }
+        .post-back:hover { opacity: 1; }
+
+        /* ─── Post header ─── */
+        .post-header { margin-bottom: 3rem; }
+        .post-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: var(--cyan);
+            background: rgba(0,212,255,0.08);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 20px;
+            padding: .2rem .75rem;
+            margin-bottom: 1.25rem;
+        }
+        .post-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 700;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 1.25rem;
+        }
+        .post-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .78rem;
+            color: rgba(255,255,255,0.4);
+            flex-wrap: wrap;
+        }
+        .post-meta span { display: flex; align-items: center; gap: .35rem; }
+
+        /* ─── Divider ─── */
+        .post-divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin: 2.5rem 0;
+        }
+
+        /* ─── Body typography ─── */
+        .post-body h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: .5rem;
+            border-bottom: 1px solid rgba(0,212,255,0.12);
+        }
+        .post-body h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            margin: 2rem 0 .75rem;
+        }
+        .post-body p {
+            font-size: 1.02rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 1.25rem;
+        }
+        .post-body ul, .post-body ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .post-body li {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.72);
+            margin-bottom: .4rem;
+        }
+        .post-body strong { color: rgba(255,255,255,0.95); }
+        .post-body em { color: var(--cyan); font-style: normal; }
+        .post-body a { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
+        .post-body a:hover { color: var(--pink); }
+
+        /* ─── Callout ─── */
+        /* Use for: key insights, highlighted findings, important framing */
+        .callout {
+            background: rgba(124,58,237,0.08);
+            border: 1px solid rgba(124,58,237,0.25);
+            border-left: 3px solid var(--purple);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+        }
+        .callout-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: var(--purple);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: .6rem;
+        }
+        .callout p { margin-bottom: .5rem; color: rgba(255,255,255,0.7); }
+        .callout p:last-child { margin-bottom: 0; }
+
+        /* ─── Stat block ─── */
+        /* Use for: data points, striking facts, personal reflections with weight */
+        .stat-block {
+            background: rgba(236,72,153,0.07);
+            border: 1px solid rgba(236,72,153,0.2);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .stat-block__icon { font-size: 1.5rem; flex-shrink: 0; }
+        .stat-block__text { font-size: .97rem; color: rgba(255,255,255,0.7); line-height: 1.7; }
+        .stat-block__text strong { color: var(--pink); }
+
+        /* ─── Film / book quote ─── */
+        /* Use for: cultural references, dialogue, literary quotes */
+        .film-quote {
+            border-left: 3px solid var(--purple);
+            margin: 2.5rem 0;
+            padding: 1.25rem 1.75rem;
+            background: rgba(124,58,237,0.06);
+            border-radius: 0 12px 12px 0;
+        }
+        .film-quote p {
+            font-size: 1.05rem;
+            font-style: italic;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            margin: 0 0 .75rem !important;
+        }
+        .film-quote cite {
+            font-size: .8rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: rgba(255,255,255,0.35);
+            font-style: normal;
+        }
+
+        /* ─── Scenario / layer cards (grid) ─── */
+        /* Use for: structured comparisons, future scenarios, numbered concepts */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin: 1.75rem 0;
+        }
+        .card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+        }
+        /* Cycle accent colours per card: add card--cyan, card--purple, card--pink */
+        .card--cyan::before   { background: linear-gradient(90deg, var(--cyan), transparent); }
+        .card--purple::before { background: linear-gradient(90deg, var(--purple), transparent); }
+        .card--pink::before   { background: linear-gradient(90deg, var(--pink), transparent); }
+        .card--dim::before    { background: linear-gradient(90deg, rgba(255,255,255,0.25), transparent); }
+        .card__num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: .35rem;
+        }
+        .card__title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: .6rem;
+        }
+        .card p {
+            font-size: .95rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* ─── References ─── */
+        .refs-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .refs-list li {
+            padding: .65rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: .9rem;
+            color: rgba(255,255,255,0.72);
+            line-height: 1.6;
+        }
+        .refs-list li:last-child { border-bottom: none; }
+
+        /* ─── Author card ─── */
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        .author-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .author-info__name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .author-info__bio {
+            font-size: .88rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+            margin-top: .25rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="nav" id="nav">
+        <div class="nav__container">
+            <a href="/" class="nav__brand" aria-label="Koushik Nagarajan — home">
+                <span class="nav__brand-mark">KN</span>
+                <span class="nav__brand-text">Koushik Nagarajan</span>
+            </a>
+            <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="nav__menu" id="nav-menu" aria-label="Main navigation">
+                <a href="/#about" class="nav__link">About</a>
+                <a href="/#expertise" class="nav__link">Expertise</a>
+                <a href="/#leadership" class="nav__link">Leadership</a>
+                <a href="/blog/" class="nav__link" aria-current="page">Writing</a>
+                <a href="/#contact" class="nav__link nav__link--cta">Connect</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="post-wrap">
+            <a href="/blog/" class="post-back">← Back to Writing</a>
+
+            <header class="post-header">
+                <div class="post-tag">✦ POST_TAG</div>
+                <h1 class="post-title">POST_TITLE</h1>
+                <p class="post-subtitle">POST_SUBTITLE</p>
+                <div class="post-meta">
+                    <span>📅 POST_DATE</span>
+                    <span>·</span>
+                    <span>⏱ POST_READ_TIME min read</span>
+                    <span>·</span>
+                    <span>Koushik Nagarajan</span>
+                </div>
+            </header>
+
+            <hr class="post-divider">
+
+            <article class="post-body">
+
+                <h2>Section One Title</h2>
+                <p>Opening paragraph. Set the scene — a concrete situation, a question, an observation. Ground it before widening.</p>
+                <p>Second paragraph. Develop the idea. Build tension or contrast.</p>
+
+                <!-- Callout example — use for key findings/insights -->
+                <div class="callout">
+                    <div class="callout-label">💡 Key Insight</div>
+                    <p><strong>Bold lead sentence.</strong> Supporting detail follows here.</p>
+                </div>
+
+                <h2>Section Two Title</h2>
+                <p>Continue the argument. Each section should move the reader forward — not recap, but advance.</p>
+
+                <!-- Stat block example — use for data points or personal stakes -->
+                <div class="stat-block">
+                    <div class="stat-block__icon">📊</div>
+                    <div class="stat-block__text">
+                        Striking fact or personal reflection. <strong>Emphasise the key number or claim in pink.</strong>
+                    </div>
+                </div>
+
+                <!-- Film/book quote example -->
+                <!--
+                <div class="film-quote">
+                    <p>"Quote text goes here."</p>
+                    <cite>— Speaker, Source (Year)</cite>
+                </div>
+                -->
+
+                <h2>Section Three Title</h2>
+                <p>This is often the "what comes next" or "what does this mean" section.</p>
+
+                <!-- Card grid example — use for scenarios, comparisons, numbered frameworks -->
+                <div class="card-grid">
+                    <div class="card card--cyan">
+                        <div class="card__num">01</div>
+                        <div class="card__title">First Point</div>
+                        <p>One clear idea per card. Short. Direct.</p>
+                    </div>
+                    <div class="card card--purple">
+                        <div class="card__num">02</div>
+                        <div class="card__title">Second Point</div>
+                        <p>Don't pad. If you can't fill a card with something real, cut it.</p>
+                    </div>
+                    <div class="card card--pink">
+                        <div class="card__num">03</div>
+                        <div class="card__title">Third Point</div>
+                        <p>End on the most interesting or provocative one.</p>
+                    </div>
+                </div>
+
+                <h2>Closing Section</h2>
+                <p>Land the piece. Return to something from the opening if you can — close the loop. Leave the reader with one clear thing to think about. Don't summarise. Conclude.</p>
+
+                <hr class="post-divider">
+
+                <h2>References & Further Reading</h2>
+                <ul class="refs-list">
+                    <li>📄 <a href="URL" target="_blank" rel="noopener">Title</a> — Author, Source. One line on why it matters.</li>
+                    <li>📚 <a href="URL" target="_blank" rel="noopener">Title</a> — Author (Year). Brief context.</li>
+                </ul>
+
+                <div class="author-card">
+                    <div class="author-avatar">KN</div>
+                    <div class="author-info">
+                        <div class="author-info__name">Koushik Nagarajan</div>
+                        <div class="author-info__bio">AI architect and technology educator. 23+ years in the industry, focused on agentic AI, multi-cloud architecture, and making complex ideas genuinely accessible. Based in Australia.</div>
+                    </div>
+                </div>
+
+                <hr class="post-divider">
+                <a href="/blog/" class="post-back">← Back to Writing</a>
+
+            </article>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>© <span id="year">2026</span> Koushik Nagarajan</p>
+            <p class="footer__meta">Designed with intent.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js" defer></script>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
