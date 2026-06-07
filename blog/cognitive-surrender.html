@@ -25,6 +25,28 @@
             --pink: #ec4899;
         }
 
+        .post-wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 6rem;
+        }
+
+        .post-back {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .8rem;
+            color: var(--cyan);
+            text-decoration: none;
+            opacity: 0.75;
+            transition: opacity 0.2s;
+            margin-bottom: 3rem;
+            margin-top: 7rem;
+            display: block;
+        }
+        .post-back:hover { opacity: 1; }
+
         .post-header { margin-bottom: 3rem; }
 
         .post-tag {
@@ -40,6 +62,7 @@
             padding: .2rem .75rem;
             margin-bottom: 1.25rem;
         }
+
         .post-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(2rem, 5vw, 2.8rem);
@@ -51,6 +74,14 @@
             background-clip: text;
             margin: 0 0 1.25rem;
         }
+
+        .post-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
         .post-meta {
             display: flex;
             align-items: center;
@@ -68,22 +99,14 @@
             margin: 2.5rem 0;
         }
 
-        .post-body {}
-        .post-body p {
-            font-size: 1.08rem;
-            line-height: 1.85;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 1.6rem;
-        }
         .post-body h2 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.55rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin: 3rem 0 1rem;
-            background: linear-gradient(135deg, #fff 0%, rgba(0,212,255,0.85) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #fff;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: .5rem;
+            border-bottom: 1px solid rgba(0,212,255,0.12);
         }
         .post-body h3 {
             font-family: 'Space Grotesk', sans-serif;
@@ -92,49 +115,67 @@
             color: rgba(255,255,255,0.9);
             margin: 2rem 0 .75rem;
         }
-        .post-body strong {
-            color: #fff;
-            font-weight: 600;
+        .post-body p {
+            font-size: 1.02rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 1.25rem;
         }
+        .post-body ul, .post-body ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .post-body li {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.72);
+            margin-bottom: .4rem;
+        }
+        .post-body strong { color: rgba(255,255,255,0.95); }
+        .post-body em { color: var(--cyan); font-style: normal; }
         .post-body a {
             color: var(--cyan);
             text-decoration: underline;
             text-underline-offset: 3px;
-            text-decoration-color: rgba(0,212,255,0.4);
-            transition: text-decoration-color 0.2s;
         }
-        .post-body a:hover {
-            text-decoration-color: var(--cyan);
-        }
-        .post-body blockquote {
-            border-left: 3px solid var(--cyan);
-            margin: 2.5rem 0;
-            padding: 1.25rem 1.75rem;
-            background: rgba(0,212,255,0.04);
-            border-radius: 0 12px 12px 0;
-        }
-        .post-body blockquote p {
-            font-size: 1.15rem;
-            font-style: italic;
-            color: rgba(255,255,255,0.85);
-            margin: 0;
-        }
+        .post-body a:hover { color: var(--pink); }
 
-        .scenario-block {
-            background: rgba(124,58,237,0.06);
-            border: 1px solid rgba(124,58,237,0.2);
+        /* Callout */
+        .callout {
+            background: rgba(124,58,237,0.08);
+            border: 1px solid rgba(124,58,237,0.25);
+            border-left: 3px solid var(--purple);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+        }
+        .callout-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: var(--purple);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: .6rem;
+        }
+        .callout p { margin-bottom: .5rem; color: rgba(255,255,255,0.7); }
+        .callout p:last-child { margin-bottom: 0; }
+
+        /* Stat block */
+        .stat-block {
+            background: rgba(236,72,153,0.07);
+            border: 1px solid rgba(236,72,153,0.2);
             border-radius: 12px;
-            padding: 1.5rem 1.75rem;
-            margin: 1.5rem 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
         }
-        .scenario-block h3 {
-            margin-top: 0;
-            color: rgba(255,255,255,0.95);
-        }
-        .scenario-block p {
-            margin-bottom: 0;
-        }
+        .stat-block__icon { font-size: 1.5rem; flex-shrink: 0; }
+        .stat-block__text { font-size: .97rem; color: rgba(255,255,255,0.7); line-height: 1.7; }
+        .stat-block__text strong { color: var(--pink); }
 
+        /* Film quote */
         .film-quote {
             border-left: 3px solid var(--purple);
             margin: 2.5rem 0;
@@ -143,87 +184,118 @@
             border-radius: 0 12px 12px 0;
         }
         .film-quote p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-style: italic;
             color: rgba(255,255,255,0.8);
-            margin: 0 0 .5rem !important;
+            line-height: 1.8;
+            margin: 0 0 .75rem !important;
         }
         .film-quote cite {
-            font-size: .82rem;
+            font-size: .8rem;
             font-family: 'JetBrains Mono', monospace;
-            color: rgba(255,255,255,0.4);
+            color: rgba(255,255,255,0.35);
             font-style: normal;
         }
 
-        .post-divider {
-            border: none;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            margin: 3rem 0;
+        /* Scenario cards for futures */
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin: 1.75rem 0;
         }
-        .credit-box {
-            background: rgba(0,212,255,0.04);
-            border: 1px solid rgba(0,212,255,0.15);
+        .scenario-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 12px;
             padding: 1.5rem;
-            font-size: .92rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .scenario-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+        }
+        .scenario-card:nth-child(1)::before { background: linear-gradient(90deg, var(--cyan), transparent); }
+        .scenario-card:nth-child(2)::before { background: linear-gradient(90deg, var(--purple), transparent); }
+        .scenario-card:nth-child(3)::before { background: linear-gradient(90deg, var(--pink), transparent); }
+        .scenario-card:nth-child(4)::before { background: linear-gradient(90deg, rgba(255,255,255,0.3), transparent); }
+        .scenario-card__num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: .35rem;
+        }
+        .scenario-card__title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: .6rem;
+        }
+        .scenario-card p {
+            font-size: .95rem;
             color: rgba(255,255,255,0.65);
             line-height: 1.7;
-            margin-bottom: 2.5rem;
+            margin: 0;
         }
-        .credit-box strong { color: rgba(255,255,255,0.9); }
-        .credit-box a { color: var(--cyan); }
 
+        /* References */
+        .refs-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .refs-list li {
+            padding: .65rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: .9rem;
+        }
+        .refs-list li:last-child { border-bottom: none; }
+
+        /* Author card */
         .author-card {
             display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 2rem;
+            align-items: center;
+            gap: 1.25rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-top: 3rem;
         }
-        .author-card__avatar {
+        .author-avatar {
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            width: 64px;
-            height: 64px;
-            flex-shrink: 0;
-        }
-        .author-card__name {
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: #fff;
-            margin-bottom: .25rem;
+            flex-shrink: 0;
         }
-        .author-card__role {
-            font-size: .82rem;
-            color: var(--cyan);
-            font-family: 'JetBrains Mono', monospace;
-            margin-bottom: .75rem;
+        .author-info__name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
         }
-        .author-card__bio {
-            font-size: .92rem;
-            color: rgba(255,255,255,0.6);
+        .author-info__bio {
+            font-size: .88rem;
+            color: rgba(255,255,255,0.5);
             line-height: 1.6;
-            margin-bottom: .75rem !important;
-        }
-        .author-card__links { display: flex; gap: .75rem; flex-wrap: wrap; }
-        .author-card__link {
-            font-size: .82rem;
-            color: var(--cyan);
-            text-decoration: none;
-            border: 1px solid rgba(0,212,255,0.25);
-            border-radius: 20px;
-            padding: .2rem .75rem;
-            transition: border-color 0.2s, background 0.2s;
-        }
-        .author-card__link:hover {
-            border-color: var(--cyan);
-            background: rgba(0,212,255,0.08);
+            margin-top: .25rem;
         }
     </style>
 </head>
 <body>
+    <a href="#main" class="skip-link">Skip to content</a>
     <header class="nav" id="nav">
         <div class="nav__container">
             <a href="/" class="nav__brand" aria-label="Koushik Nagarajan — home">
@@ -245,137 +317,177 @@
 
     <main id="main">
         <div class="post-wrap">
-        <a href="/blog/" class="post-back">← Back to Writing</a>
-        <header class="post-header">
-                <span class="post-tag">✦ AI &amp; Cognitive Science</span>
+            <a href="/blog/" class="post-back">← Back to Writing</a>
+
+            <header class="post-header">
+                <div class="post-tag">✦ AI & Cognitive Science</div>
                 <h1 class="post-title">Cognitive Surrender: The Tool That Thinks</h1>
+                <p class="post-subtitle">Every tool in history extended a physical capability. AI is the first one that extends — and may replace — the thinking itself. I don't know what comes next. But I intend to keep carrying my own fire.</p>
                 <div class="post-meta">
                     <span>📅 7 June 2026</span>
                     <span>·</span>
-                    <span>5 min read</span>
+                    <span>⏱ 7 min read</span>
+                    <span>·</span>
+                    <span>Koushik Nagarajan</span>
                 </div>
-        </header>
-        <hr class="post-divider">
+            </header>
 
-        <article class="post-body">
+            <hr class="post-divider">
 
-            <p>
-                Since the beginning of human civilisation, we have extended ourselves through tools. The hammer extended the arm. The wheel extended the leg. The telescope extended the eye. Every tool in history amplified a <em>physical</em> capability — but the thinking always stayed with us.
-            </p>
-            <p>
-                What happens when the tool starts thinking <em>for</em> us?
-            </p>
+            <article class="post-body">
 
-            <h2>System 3</h2>
-            <p>
-                Most people know Kahneman's two systems: <strong>System 1</strong> — fast, instinctive, gut feeling. <strong>System 2</strong> — slow, deliberate, analytical.
-            </p>
-            <p>
-                Researchers at the Wharton School have proposed a third. <strong>System 3: AI.</strong> Not a metaphor — a genuine external cognitive system operating outside the biological mind, driven by algorithms rather than neurons.
-            </p>
-            <p>
-                Their <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646" target="_blank" rel="noopener">paper</a> introduces the concept they call <strong>cognitive surrender</strong> — not simply using AI as a tool, but handing over judgment entirely. You stop constructing an answer. You adopt one. The AI's output becomes your own without scrutiny, without question.
-            </p>
-            <p>
-                The data backs it up starkly: when AI was correct, people got smarter. When AI was wrong, people got confidently wrong. Confidence went up in both cases. Time pressure didn't stop it. Incentives didn't stop it. Feedback on errors didn't stop it.
-            </p>
-            <p>
-                The tool was thinking. And people had stopped noticing.
-            </p>
+                <h2>The Tool Has Always Been Us</h2>
 
-            <h2>The Build 2026 Moment</h2>
-            <p>
-                I first encountered this paper in conversation — <strong>Scott Hanselman and Mark Russinovich</strong> at <a href="https://build.microsoft.com" target="_blank" rel="noopener">Microsoft Build 2026</a> were discussing it directly. Two of the most respected engineering voices in the industry, pausing on a cognitive science paper. That pause said something.
-            </p>
-            <p>
-                They are the people building the systems. They understand better than most how seamlessly AI inserts itself into a decision pathway — and how invisible that insertion can feel to the person making the decision.
-            </p>
+                <p>
+                    Since the beginning of human civilisation, we have extended ourselves through tools. The hammer extended the arm. The wheel extended the leg. The telescope extended the eye. The printing press extended memory. The telephone extended voice across distance.
+                </p>
 
-            <h2>The Sheriff's Dream</h2>
-            <p>
-                When I sat with this paper, my mind went somewhere unexpected. To the final scene of <em>No Country for Old Men</em>. Sheriff Ed Tom Bell — played by Tommy Lee Jones — sits at a kitchen table and describes two dreams to his wife.
-            </p>
-            <p>
-                In the second dream, he is riding through dark mountain passes at night. Cold. Snow on the ground. His father rides past him without a word, head down, a blanket around his shoulders. And Bell notices his father is carrying <strong>fire in a horn</strong> — the old way, the way people once kept embers alive through the dark.
-            </p>
+                <p>
+                    Every tool in that lineage amplified a <strong>physical</strong> capability — but the thinking always stayed with us. The judgment, the interpretation, the decision about what to do with the output. That remained human.
+                </p>
 
-            <div class="film-quote">
-                <p>"And in the dream I knew that he was goin' on ahead and that he was fixin' to make a fire somewhere out there in all that dark and all that cold and I knew that whenever I got there he would be there."</p>
-                <cite>— Sheriff Ed Tom Bell, No Country for Old Men (2007)</cite>
-            </div>
+                <p>
+                    What happens when the tool starts thinking <em>for</em> us?
+                </p>
 
-            <p>
-                The film's whole question is: what do you do when the world becomes something you no longer recognise? Bell doesn't defeat the darkness. He doesn't pretend to understand it. He witnesses it. He keeps his humanity intact. And he trusts — quietly, without certainty — that someone is going ahead to make a fire.
-            </p>
-            <p>
-                I think that's the most honest position available to any of us right now when it comes to AI.
-            </p>
+                <p>
+                    That's not a rhetorical question. It's the question Researchers at the Wharton School have started putting data behind — and the answer is more uncomfortable than most people want to sit with.
+                </p>
 
-            <h2>What Might Come Next</h2>
-            <p>
-                I am genuinely uncertain. But here are the four futures I find myself mapping:
-            </p>
+                <h2>System 3</h2>
 
-            <div class="scenario-block">
-                <h3>1. Cognitive Stratification</h3>
-                <p>Society splits between those who use AI critically and those who surrender entirely. The gap compounds quietly over time — not by design, but by default.</p>
-            </div>
+                <p>
+                    Most people know Daniel Kahneman's two-system framework: <strong>System 1</strong> — fast, instinctive, gut-driven. <strong>System 2</strong> — slow, deliberate, analytical. Together they describe how humans think.
+                </p>
 
-            <div class="scenario-block">
-                <h3>2. The Generalist Renaissance</h3>
-                <p>Specialists, deeply trusting AI in their own domain, may surrender fastest. The generalist — always slightly outside their comfort zone, cross-checking across fields — maintains natural skepticism. Broad curiosity becomes a cognitive superpower.</p>
-            </div>
+                <p>
+                    Researchers at Wharton have proposed a third. <strong>System 3: AI.</strong> Not as a metaphor — as a genuine external cognitive system operating outside the biological mind, now deeply integrated into how we form judgments and make decisions.
+                </p>
 
-            <div class="scenario-block">
-                <h3>3. Cognitive Fitness as Practice</h3>
-                <p>Like deliberate walking in a GPS world, people start practising thinking-without-AI. Reasoning becomes a discipline. Something you maintain, not just something you do.</p>
-            </div>
+                <div class="callout">
+                    <div class="callout-label">🧠 The Key Finding</div>
+                    <p>Their paper introduces the concept of <strong>cognitive surrender</strong> — not simply using AI as a tool, but handing over judgment entirely. You stop constructing an answer. You adopt one. The AI's output becomes your own without scrutiny, without question.</p>
+                    <p>When AI was correct, people got measurably smarter. When AI was wrong, people got <em>confidently wrong</em>. Confidence went up in both cases. Time pressure didn't stop it. Incentives didn't stop it. Feedback on past errors didn't stop it.</p>
+                </div>
 
-            <div class="scenario-block">
-                <h3>4. The Question Becomes Moot</h3>
-                <p>AI integrates so completely — through interfaces, through infrastructure, through us — that the boundary between human cognition and artificial cognition dissolves. This is the scenario nobody wants to name out loud.</p>
-            </div>
+                <p>
+                    That last part is what stopped me cold. The feedback loop — the human mechanism we rely on to self-correct — was no longer working. People were surrendering the correction too.
+                </p>
 
-            <h2>Carrying Your Own Fire</h2>
-            <p>
-                Bell doesn't surrender in that film. He witnesses. He stays human. He keeps riding — even through a world that has outpaced his old frameworks — because the alternative is to stop being himself.
-            </p>
-            <p>
-                Cognitive surrender is not inevitable. It is a choice — usually an invisible one, made by default, in the frictionless moment when the AI answer arrives and it's easier to accept than to question.
-            </p>
-            <p>
-                The antidote isn't fear of AI. It isn't rejection of it. It's something quieter: <strong>staying curious, staying broad, staying willing to disagree with the machine.</strong> Keeping your own judgment alive even when — especially when — the tool is faster and more confident than you are.
-            </p>
-            <p>
-                I don't know what's coming. I genuinely don't. But I intend to keep carrying my own fire.
-            </p>
+                <h2>The Build 2026 Moment</h2>
 
-            <div class="post-divider"></div>
+                <p>
+                    I first encountered this paper in a conversation I wasn't expecting. Scott Hanselman and Mark Russinovich — two of the most respected engineering voices in the industry — were discussing it directly at <a href="https://build.microsoft.com" target="_blank" rel="noopener">Microsoft Build 2026</a>.
+                </p>
 
-            <div class="credit-box">
-                <strong>References &amp; Further Reading</strong><br><br>
-                <strong>Primary paper:</strong> Shaw, S. D., &amp; Nave, G. (2026). <em>Thinking — Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrender.</em> Wharton School, University of Pennsylvania. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646" target="_blank" rel="noopener">Read on SSRN ↗</a><br><br>
-                <strong>Foundational work:</strong> Kahneman, D. (2011). <em>Thinking, Fast and Slow.</em> <a href="https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow" target="_blank" rel="noopener">Wikipedia ↗</a><br><br>
-                <strong>Film:</strong> <em>No Country for Old Men</em> (2007), dir. Joel &amp; Ethan Coen. Based on the novel by Cormac McCarthy.<br><br>
-                <strong>Mentioned at:</strong> <a href="https://build.microsoft.com" target="_blank" rel="noopener">Microsoft Build 2026</a> — discussed by Scott Hanselman and Mark Russinovich (Microsoft).
-            </div>
+                <p>
+                    That pause said something. These are the people building the systems. They understand better than most how seamlessly AI inserts itself into a decision pathway — and how invisible that insertion can feel to the person making the decision. When the builders stop to ask the cognitive science question, you pay attention.
+                </p>
 
-            <div class="author-card">
-                <img class="author-card__avatar" src="https://github.com/element824.png" alt="Koushik Nagarajan" width="64" height="64" loading="lazy">
-                <div>
-                    <div class="author-card__name">Koushik Nagarajan</div>
-                    <div class="author-card__role">AI Architect · AI Storyteller · Technology Educator</div>
-                    <p class="author-card__bio">
-                        23+ years in technology, focused on Agentic AI, multi-cloud architectures, and making complex AI concepts accessible. Based in Australia.
-                    </p>
-                    <div class="author-card__links">
-                        <a href="https://www.linkedin.com/in/koushiknagarajan/" class="author-card__link" target="_blank" rel="noopener">LinkedIn</a>
-                        <a href="https://github.com/element824" class="author-card__link" target="_blank" rel="noopener">GitHub</a>
-                        <a href="/blog/" class="author-card__link">More Writing</a>
+                <div class="stat-block">
+                    <div class="stat-block__icon">🪞</div>
+                    <div class="stat-block__text">
+                        I am genuinely uncertain about where this goes. I don't think anyone can be fully certain. What I want to do — what I think is honest — is to <strong>be an observer</strong>. To watch how this unfolds without pretending I have the map. To stay curious about the territory.
                     </div>
                 </div>
-            </div>
-        </article>
+
+                <h2>The Sheriff's Dream</h2>
+
+                <p>
+                    When I sat with this paper, my mind went somewhere unexpected. To the final scene of <em>No Country for Old Men</em>.
+                </p>
+
+                <p>
+                    Sheriff Ed Tom Bell — played by Tommy Lee Jones — sits at a kitchen table and describes two dreams to his wife. In the second dream, he is riding through dark mountain passes at night. Cold. Snow on the ground. His father rides past him without a word, carrying fire in a horn — the old way, the way people once kept embers alive through the dark.
+                </p>
+
+                <div class="film-quote">
+                    <p>"And in the dream I knew that he was goin' on ahead and that he was fixin' to make a fire somewhere out there in all that dark and all that cold and I knew that whenever I got there he would be there."</p>
+                    <cite>— Sheriff Ed Tom Bell, No Country for Old Men (2007)</cite>
+                </div>
+
+                <p>
+                    The whole film asks: what do you do when the world becomes something you no longer recognise? Bell doesn't defeat the darkness. He doesn't pretend to understand it. He witnesses it. He keeps his humanity intact. And he trusts — quietly, without certainty — that someone is going ahead to make a fire.
+                </p>
+
+                <p>
+                    I think that's the most honest position available to us right now when it comes to AI. Not panic. Not blind optimism. Witnessing. Staying human. Keeping the fire.
+                </p>
+
+                <h2>What Might Come Next</h2>
+
+                <p>
+                    I'm genuinely uncertain. But here are the four futures I find myself mapping when I think about where cognitive surrender leads:
+                </p>
+
+                <div class="scenario-grid">
+                    <div class="scenario-card">
+                        <div class="scenario-card__num">Future 01</div>
+                        <div class="scenario-card__title">Cognitive Stratification</div>
+                        <p>Society splits between those who use AI critically and those who surrender entirely. The gap compounds quietly over time — not by design, but by default. Not a class divide. A cognition divide.</p>
+                    </div>
+                    <div class="scenario-card">
+                        <div class="scenario-card__num">Future 02</div>
+                        <div class="scenario-card__title">The Generalist Renaissance</div>
+                        <p>Specialists, deeply trusting AI in their own domain, may surrender fastest. The generalist — always slightly outside their comfort zone, cross-checking across fields — maintains natural scepticism. Broad curiosity becomes a cognitive superpower.</p>
+                    </div>
+                    <div class="scenario-card">
+                        <div class="scenario-card__num">Future 03</div>
+                        <div class="scenario-card__title">Cognitive Fitness as Practice</div>
+                        <p>Like deliberate walking in a GPS world, people begin practising thinking-without-AI. Reasoning becomes a discipline — something you maintain intentionally, not just something you do. The examined thought as a form of self-preservation.</p>
+                    </div>
+                    <div class="scenario-card">
+                        <div class="scenario-card__num">Future 04</div>
+                        <div class="scenario-card__title">The Question Becomes Moot</div>
+                        <p>AI integrates so completely — through interfaces, infrastructure, and eventually biology — that the boundary between human cognition and artificial cognition dissolves. This is the scenario nobody wants to name out loud.</p>
+                    </div>
+                </div>
+
+                <p>
+                    I don't know which of these is coming. Probably some combination. Probably in different measures for different people, in different parts of the world, at different speeds.
+                </p>
+
+                <h2>Carrying Your Own Fire</h2>
+
+                <p>
+                    Bell doesn't surrender in that film. He witnesses. He stays human. He keeps riding — even through a world that has outpaced his old frameworks — because the alternative is to stop being himself.
+                </p>
+
+                <p>
+                    Cognitive surrender is not inevitable. It is a choice — usually an invisible one, made by default, in the frictionless moment when the AI answer arrives and it's easier to accept than to question.
+                </p>
+
+                <p>
+                    The antidote isn't fear of AI. It isn't rejection of it. It's something quieter: <strong>staying curious, staying broad, staying willing to disagree with the machine.</strong> Keeping your own judgment alive — especially when the tool is faster and more confident than you are.
+                </p>
+
+                <p>
+                    I don't know what's coming. I genuinely don't. But I intend to keep carrying my own fire.
+                </p>
+
+                <hr class="post-divider">
+
+                <h2>References & Further Reading</h2>
+
+                <ul class="refs-list">
+                    <li>📄 <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646" target="_blank" rel="noopener">Thinking — Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrender</a> — Shaw, S. D., &amp; Nave, G. (2026). Wharton School, University of Pennsylvania. The primary paper discussed in this post.</li>
+                    <li>📚 <a href="https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow" target="_blank" rel="noopener">Thinking, Fast and Slow</a> — Kahneman, D. (2011). The foundational two-system framework that the Wharton paper extends.</li>
+                    <li>🎬 <em>No Country for Old Men</em> (2007) — dir. Joel &amp; Ethan Coen. Based on the novel by Cormac McCarthy. The Sheriff's dream is in the final scene.</li>
+                    <li>🎤 <a href="https://build.microsoft.com" target="_blank" rel="noopener">Microsoft Build 2026</a> — The conversation between Scott Hanselman and Mark Russinovich where I first encountered this paper.</li>
+                </ul>
+
+                <div class="author-card">
+                    <div class="author-avatar">KN</div>
+                    <div class="author-info">
+                        <div class="author-info__name">Koushik Nagarajan</div>
+                        <div class="author-info__bio">AI architect and technology educator. 23+ years in the industry, focused on agentic AI, multi-cloud architecture, and making complex ideas genuinely accessible. Based in Australia.</div>
+                    </div>
+                </div>
+
+                <hr class="post-divider">
+                <a href="/blog/" class="post-back">← Back to Writing</a>
+
+            </article>
         </div>
     </main>
 
